@@ -1,12 +1,20 @@
 package android.example.calllogcontentprovider
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.CallLog
 import androidx.core.app.ActivityCompat
 
 class MainActivity : AppCompatActivity() {
+
+    var cols = listOf<String>(CallLog.Calls._ID,
+                            CallLog.Calls.NUMBER,
+                            CallLog.Calls.TYPE,
+                            CallLog.Calls.DURATION).toTypedArray()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,7 +35,13 @@ class MainActivity : AppCompatActivity() {
             displayLog()
     }
 
+    @SuppressLint("MissingPermission")
     private fun displayLog() {
-        TODO("Not yet implemented")
+
+        var from = listOf<String>(CallLog.Calls.NUMBER,
+                                CallLog.Calls.DURATION,
+                                CallLog.Calls.TYPE).toTypedArray()
+
+        var rs = contentResolver.query(CallLog.Calls.CONTENT_URI, cols, null, null, "${CallLog.Calls.LAST_MODIFIED} DESC")
     }
 }
