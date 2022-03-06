@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.CallLog
 import android.widget.SimpleCursorAdapter
 import androidx.core.app.ActivityCompat
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,5 +49,8 @@ class MainActivity : AppCompatActivity() {
         var rs = contentResolver.query(CallLog.Calls.CONTENT_URI, cols, null, null, "${CallLog.Calls.LAST_MODIFIED} DESC")
 
         var adapter = SimpleCursorAdapter(applicationContext, R.layout.mylayout, rs, from, to, 0)
+
+        listview.adapter = adapter
+
     }
 }
