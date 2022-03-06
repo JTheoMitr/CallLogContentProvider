@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.CallLog
+import android.widget.SimpleCursorAdapter
 import androidx.core.app.ActivityCompat
 
 class MainActivity : AppCompatActivity() {
@@ -42,6 +43,10 @@ class MainActivity : AppCompatActivity() {
                                 CallLog.Calls.DURATION,
                                 CallLog.Calls.TYPE).toTypedArray()
 
+        var to = intArrayOf(R.id.textView1, R.id.textView2, R.id.textView3)
+
         var rs = contentResolver.query(CallLog.Calls.CONTENT_URI, cols, null, null, "${CallLog.Calls.LAST_MODIFIED} DESC")
+
+        var adapter = SimpleCursorAdapter(applicationContext, R.layout.mylayout, rs, from, to, 0)
     }
 }
